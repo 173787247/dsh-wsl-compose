@@ -1,0 +1,8 @@
+- insert:
+    - id: dsh-wsl-compose
+      name: dsh-wsl-compose
+      config:
+        enabled: true
+        timeoutMs: 60000
+        allowRoots: []
+        allowMutate: false
