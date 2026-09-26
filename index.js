@@ -26,13 +26,13 @@ export function apply(ctx, config = {}) {
 
   ctx.tools.register({
     name: "compose_status",
-    description: "Whether docker / docker-compose are on PATH.",
+    description: "Whether docker / compose plugin are on PATH; compose version + allowMutate flag.",
     parameters: { type: "object", additionalProperties: false, properties: {} },
-    output: { schema: { type: "object", additionalProperties: true }, render: (_a, v) => [{ type: "text", text: JSON.stringify(v) }] },
-    timeoutMs: 5_000,
+    output: { schema: { type: "object", additionalProperties: true }, render: (_a, v) => [{ type: "text", text: JSON.stringify(v, null, 2) }] },
+    timeoutMs: 8_000,
     isConcurrencySafe: () => true,
     async execute() {
-      return { ...(await composeStatus()), allowMutate };
+      return { ...(await composeStatus()), allowMutate, allowRootsCount: allowRoots.length };
     },
     presentCall: () => ({ card: "generic", title: "compose status" }),
     presentResult: (_a, r) => ({ card: "generic", title: "compose status", content: r.content }),
